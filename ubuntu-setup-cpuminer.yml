@@ -1,0 +1,40 @@
+- hosts: target_after
+  user: "{{ user_name }}"
+  tasks:
+  - name: apt update
+    become: yes
+    apt:
+      update_cache: yes
+  - name: apt upgrade
+    become: yes
+    apt:
+      upgrade: yes
+  - name: 必要なライブラリをインストール
+    become: yes
+    apt:
+      name:
+        - git
+        - automake
+        - autoconf
+        - pkg-config
+        - libcurl4-openssl-dev
+        - libjansson-dev
+        - libssl-dev
+        - libgmp-dev
+        - zlib1g-dev
+        - make
+        - g++
+        - cpulimit
+  - name: ディレクトリ作成
+    ansible.builtin.file:
+      path: "/home/{{ user_name }}/cpuminer-multi"
+      state: directory
+      mode: '0755'
+  - name: cpuminerをダウンロード
+    ansible.builtin.git:
+      repo: https://github.com/tpruvot/cpuminer-multi
+      dest: "/home/{{ user_name }}/cpuminer-multi"
+  - name: cpuminerをコンパイル
+    command: ./build.sh
+    args:
+      chdir: "/home/{{ user_name }}/cpuminer-multi"
