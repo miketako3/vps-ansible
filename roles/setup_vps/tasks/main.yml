@@ -1,0 +1,5 @@
+---
+- include_tasks: apt_upgrade.yml
+- include_tasks: create_user.yml
+- include_tasks: configure_ufw.yml
+- include_tasks: configure_ssh.yml

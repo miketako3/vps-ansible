@@ -1,0 +1,3 @@
+---
+- name: コントロールプレーンノードの隔離
+  command: 'kubectl taint nodes --all node-role.kubernetes.io/master-'

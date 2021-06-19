@@ -1,0 +1,26 @@
+---
+- name: ufwをインストール
+  become: yes
+  apt:
+    name:
+      - ufw
+- name: ufwのデフォルトポリシーをdenyに設定
+  ufw:
+    state: enabled
+    default: deny
+- name: ufwで必要なポートでの通信を許可
+  ufw:
+    rule: allow
+    proto: tcp
+    state: enabled
+    to_port: "{{ item }}"
+  with_items:
+    - 2222
+    - 443
+    - 80
+- name: ufwでipv6無効化
+  lineinfile:
+    dest: /etc/default/ufw
+    regexp: "^IPV6=yes"
+    insertafter: "^#IPV6=yes"
+    line: "IPV6=no"

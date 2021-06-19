@@ -1,0 +1,29 @@
+---
+- name: "待受ポートを {{ sshd_port }} に変更"
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^Port"
+    insertafter: "^#Port"
+    line: "Port {{ sshd_port }}"
+- name: パスワード認証の無効化
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication"
+    insertafter: "^#PasswordAuthentication"
+    line: "PasswordAuthentication no"
+- name: 公開鍵認証の有効化
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PubkeyAuthentication"
+    insertafter: "^#PubkeyAuthentication"
+    line: "PubkeyAuthentication yes"
+- name: rootユーザのログイン禁止
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    insertafter: "^#PermitRootLogin"
+    line: "PermitRootLogin no"
+- name: sshdリスタート
+  service:
+    name: ssh
+    state: restarted

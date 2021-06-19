@@ -1,0 +1,5 @@
+---
+- name: calicoのインストール1
+  command: 'kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml'
+- name: calicoのインストール2
+  command: 'kubectl create -f https://docs.projectcalico.org/manifests/custom-resources.yaml'

@@ -1,0 +1,33 @@
+---
+- name: apt update
+  become: yes
+  apt:
+    update_cache: yes
+- name: docker等のインストール
+  become: yes
+  apt:
+    name:
+      - docker.io
+      - apt-transport-https
+      - curl
+- name: apt-keyにDLした鍵を追加
+  become: yes
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+- name: リポジトリを追加
+  become: yes
+  lineinfile:
+    dest: /etc/apt/sources.list.d/kubernetes.list
+    line: 'deb http://apt.kubernetes.io/ kubernetes-xenial main'
+    create: yes
+- name: apt update
+  become: yes
+  apt:
+    update_cache: yes
+- name: kubernetesのインストール
+  become: yes
+  apt:
+    name:
+      - kubelet
+      - kubeadm
+      - kubectl

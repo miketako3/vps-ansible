@@ -1,0 +1,21 @@
+---
+- name: 作業用ユーザを作成
+  user:
+    name: "{{ user_name }}"
+    state: present
+    password: "{{ ansible_become_pass | password_hash('sha512')}}"
+    groups: sudo
+- name: .sshディレクトリ作成
+  file:
+    path: "~{{ user_name }}/.ssh"
+    state: directory
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0700
+- name: 公開鍵を移送
+  copy:
+    dest: "~{{ user_name }}/.ssh/authorized_keys"
+    content: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+    mode: 0600
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"

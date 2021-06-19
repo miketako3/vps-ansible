@@ -1,0 +1,16 @@
+---
+- name: kubeadm initをcalico用のオプションをつけて実行
+  become: yes
+  command: 'kubeadm init --pod-network-cidr=192.168.0.0/16'
+- name: kubeディレクトリ作成
+  file:
+    state: directory
+    path: "/home/{{ user_name }}/.kube"
+- name: 設定をコピー
+  become: yes
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: "/home/{{ user_name }}/.kube/config"
+    remote_src: yes
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"

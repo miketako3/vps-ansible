@@ -1,0 +1,7 @@
+---
+- include_tasks: disable_swap.yml
+- include_tasks: configure_network.yml
+- include_tasks: install_kubernetes.yml
+- include_tasks: kube_init.yml
+- include_tasks: install_calico.yml
+- include_tasks: taint_control.yml

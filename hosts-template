@@ -1,0 +1,4 @@
+[vps_first]
+{{TARGET_HOST}}
+[vps]
+target ansible_port={{PORT}} ansible_host={{TARGET_HOST}}

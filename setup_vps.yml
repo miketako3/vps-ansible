@@ -1,0 +1,4 @@
+---
+- hosts: vps_first
+  roles:
+    - setup_vps
