@@ -12,6 +12,9 @@ VPSの初期設定に関するAnsible Playbookです。
 
 # Usage
 
+## SSH鍵の準備
+`~/.ssh/id_rsa.pub`に公開鍵を、`~/.ssh/id_rsa`に秘密鍵を配置してください。
+
 ## hostsの準備
 以下を実行してhostsファイルを準備してください。
 
@@ -39,8 +42,14 @@ vim private.yml
 ## 実行
 以下を実行してください。
 
-ただし`setup_vps.yml`の場合は`${USER}`を`root`で、それ以外の場合はセットアップ時に作成した作業ユーザを指定して実行してください。
+`${USER}`をセットアップ時に作成した作業ユーザを指定して実行してください。
 
 ```shell
 ansible-playbook -i hosts ${PLAYBOOK} --extra-vars="@private.yml" -u ${USER}
+```
+
+ただし`setup_vps.yml`の場合は以下で実行してください (rootに公開鍵認証でSSHできる場合は末尾の`--ask-pass`は不要です)。
+
+```shell
+ansible-playbook -i hosts setup_vps.yml --extra-vars="@private.yml" -u root --ask-pass
 ```
