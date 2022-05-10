@@ -1,0 +1,12 @@
+---
+- name: .bash_profile作成
+  file:
+    path: ~/.bash_profile
+    state: touch
+- name: bash_profileにbashrcを読む設定を追加
+  blockinfile:
+    path: ~/.bash_profile
+    block: |
+      if [[ -f ~/.bashrc ]] ; then
+        . ~/.bashrc
+      fi

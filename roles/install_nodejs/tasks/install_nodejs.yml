@@ -1,0 +1,12 @@
+---
+- name: nvmのダウンロード
+  shell: wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+  args:
+    chdir: "{{ ansible_env.HOME }}"
+    executable: /bin/bash
+    creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+- name: nodejsのlts最新版をインストール
+  shell: . {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm install 16.15.0
+  args:
+    chdir: "{{ ansible_env.HOME }}"
+    executable: /bin/bash
