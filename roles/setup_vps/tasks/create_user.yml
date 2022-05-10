@@ -5,6 +5,7 @@
     state: present
     password: "{{ ansible_become_pass | password_hash('sha512')}}"
     groups: sudo
+    shell: /bin/bash
 - name: .sshディレクトリ作成
   file:
     path: "~{{ user_name }}/.ssh"
