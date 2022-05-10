@@ -1,0 +1,40 @@
+---
+- name: pyenvのダウンロード
+  shell: curl https://pyenv.run | bash
+  args:
+    chdir: "{{ ansible_env.HOME }}"
+    executable: /bin/bash
+    creates: "{{ ansible_env.HOME }}/.pyenv/bin/pyenv"
+- name: bashrcに追記
+  blockinfile:
+    path: ~/.bashrc
+    block: |
+      export PATH="$HOME/.pyenv/bin:$PATH"
+      eval "$(pyenv init --path)"
+      eval "$(pyenv virtualenv-init -)"
+- name: 必要なライブラリを追加
+  become: yes
+  apt:
+    name:
+      - build-essential
+      - libbz2-dev
+      - libdb-dev
+      - libreadline-dev
+      - libffi-dev
+      - libgdbm-dev
+      - liblzma-dev
+      - libncursesw5-dev
+      - libsqlite3-dev
+      - libssl-dev
+      - zlib1g-dev
+      - uuid-dev
+      - tk-dev
+- name: pythonの最新版をインストール
+  shell: >
+    export PATH="$HOME/.pyenv/bin:$PATH" &&
+    eval "$(pyenv init --path)" &&
+    eval "$(pyenv virtualenv-init -)" &&
+    pyenv install 3.10.4
+  args:
+    chdir: "{{ ansible_env.HOME }}"
+    executable: /bin/bash
