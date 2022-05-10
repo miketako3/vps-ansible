@@ -48,6 +48,12 @@ vim private.yml
 ansible-playbook -i hosts ${PLAYBOOK} --extra-vars="@private.yml" -u ${USER}
 ```
 
+例
+
+```shell
+ansible-playbook -i hosts install_nodejs.yml --extra-vars="@private.yml" -u user
+```
+
 ただし`setup_vps.yml`の場合は以下で実行してください (rootに公開鍵認証でSSHできる場合は末尾の`--ask-pass`は不要です)。
 
 ```shell
