@@ -14,9 +14,9 @@
   unarchive:
     remote_src: yes
     src: /tmp/geckodriver-v0.31.0-linux64.tar.gz
-    dest: /usr/local/share/
+    dest: /usr/local/bin/
 - name: geckodriverの権限追加
   become: yes
   file:
-    path: /usr/local/share/geckodriver
+    path: /usr/local/bin/geckodriver
     mode: 0755
