@@ -4,4 +4,19 @@
   apt:
     name:
       - firefox
-      - firefox-geckodriver
+- name: geckodriverのダウンロード
+  become: yes
+  get_url:
+    url: https://github.com/mozilla/geckodriver/releases/download/v0.31.0/geckodriver-v0.31.0-linux64.tar.gz
+    dest: /tmp
+- name: geckodriverの解凍
+  become: yes
+  unarchive:
+    remote_src: yes
+    src: /tmp/geckodriver-v0.31.0-linux64.tar.gz
+    dest: /usr/local/share/
+- name: geckodriverの権限追加
+  become: yes
+  file:
+    path: /usr/local/share/geckodriver
+    mode: 0755
