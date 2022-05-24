@@ -38,3 +38,12 @@
   args:
     chdir: "{{ ansible_env.HOME }}"
     executable: /bin/bash
+- name: pythonの最新版をglobalに設定
+  shell: >
+    export PATH="$HOME/.pyenv/bin:$PATH" &&
+    eval "$(pyenv init --path)" &&
+    eval "$(pyenv virtualenv-init -)" &&
+    pyenv global 3.10.4
+  args:
+    chdir: "{{ ansible_env.HOME }}"
+    executable: /bin/bash
