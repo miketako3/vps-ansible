@@ -1,0 +1,7 @@
+---
+- name: 必要なライブラリを追加
+  become: yes
+  apt:
+    name:
+      - firefox
+      - firefox-geckodriver

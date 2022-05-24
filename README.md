@@ -11,6 +11,7 @@ VPSの初期設定に関するAnsible Playbookです。
 - セットアップ後のシングルノードKubernetesのインストール (`setup_kubernetes.yml`)
 - セットアップ後のNode.jsのインストール (`install_nodejs`)
 - セットアップ後のPythonのインストール (`install_python`)
+- セットアップ後のfirefoxおよびgekodriverのインストール (`install_firefox`)
 
 # Usage
 
